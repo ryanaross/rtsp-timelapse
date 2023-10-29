@@ -60,9 +60,6 @@ def serve_media(filename):
         # Auto-detect mimetype
         mimetype, encoding = mimetypes.guess_type(filename)
         
-        # Print out the mimetype for debugging
-        print(f"Mimetype: {mimetype}")
-        
         # Serve the file using send_file
         return send_file(filename, mimetype=mimetype)
     else:

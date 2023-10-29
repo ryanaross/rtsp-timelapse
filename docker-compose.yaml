@@ -3,6 +3,8 @@ services:
   timelapse:
     build: 
       context: ./rtsp-timelapse
+    ports:
+      - "4125:5000"  # change port
     environment:
       rstp_stream_url: rtsp://username:password@ip/path
       camera_title: "Inside Camera"
