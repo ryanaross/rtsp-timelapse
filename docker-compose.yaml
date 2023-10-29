@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  timelapse:
+    build: 
+      context: ./rtsp-timelapse
+    environment:
+      rstp_stream_url: rtsp://username:password@ip/path
+      camera_title: "Inside Camera"
+    volumes:
+      - ./rtsp-timelapse/data:/app/data
+      - ./rtsp-timelapse/stills:/app/stills
+      - ./rtsp-timelapse/videos:/app/videos
+      - ./rtsp-timelapse/timelapse:/app/timelapse

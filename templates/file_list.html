@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File List</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Add custom CSS for dark mode -->
+    <style>
+        body {
+            background-color: #343a40;
+            color: #fff;
+        }
+        table {
+            background-color: #454d55;
+            color: #fff;
+        }
+        th, td {
+            border: 1px solid #6c757d;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">File List</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Last Modified</th>
+                        <th>Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file, details in files.items() %}
+                    <tr>
+                        <td><a href="{{ url_for('serve_media', filename=file) }}">{{ file }}</a></td>
+                        <td>{{ details['last_modified'] }}</td>
+                        <td>{{ details['size'] }} KB</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>

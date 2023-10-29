@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ config_variables.camera_title }} - Status</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">    <!-- Add custom CSS for dark mode -->
+    <style>
+        body {
+            background-color: #343a40;
+            color: #fff;
+        }
+        table {
+            background-color: #454d55;
+            color: #fff;
+        }
+        th, td {
+            border: 1px solid #6c757d;
+            color: #fff;
+        }
+        .top-image {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            max-height: 50vh; /* Use viewport height (vh) instead of percentage (%) */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ config_variables.camera_title }}</h1>
+        {% if latest_image %}
+            <img src="{{ url_for('serve_media', filename=latest_image) }}" alt="Latest Still Image" class="img-thumbnail top-image">
+        {% else %}
+            <p>No latest image available.</p>
+        {% endif %}
+
+        <h2 class="mt-4">Directories</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Directory</th>
+                        <th>File Count</th>
+                        <th>Latest File</th>
+                        <th>Latest Modified Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in directories %}
+                    <tr>
+                        <td><a href="{{ url_for('serve_file_list', directory=item.directory) }}">{{ item.directory }}</a></td>
+                        <td>{{ item.file_count }}</td>
+                        <td>
+                            {% if item.latest_file %}
+                                <a href="{{ url_for('serve_media', filename=item.latest_file) }}">{{ item.latest_file }}</a>
+                            {% else %}
+                                No file
+                            {% endif %}
+                        </td>
+                        <td>{{ item.latest_modified_time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="mt-4">Config Variables</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for name, value in config_variables.items() %}
+                    {% if not name in ['os', 'logging'] and not 'dotenv' in name and not name.endswith('_str') %}
+                    <tr>
+                        <td>{{ name }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
