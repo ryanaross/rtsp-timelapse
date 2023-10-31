@@ -24,6 +24,15 @@ Refer to `config.py` for a description of each environment variable.
 3. The Python script `main.py` uses these variables to control the behavior of the timelapse creation.
 4. Various Python scripts can be run standalone for testing or specific tasks.
 
+## Running Standalone Scripts with Docker Compose
+
+To execute standalone scripts when running with Docker Compose, follow these steps:
+
+1. Ensure that your Docker Compose application is running. If not, start it with `docker-compose up -d`.
+2. Use the `docker-compose exec` command to run your script. Replace `service_name` with the name of the service defined in your `docker-compose.yaml` file and `script.py` with the name of your Python script.
+```docker-compose exec service_name python script.py```
+This command will execute `script.py` in the context of the `service_name` service container. 
+
 ## Deployment
 
 1. Set the environment variables directly in the `docker-compose.yaml` file.
