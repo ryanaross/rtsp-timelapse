@@ -9,6 +9,8 @@ RTSP-Timelapse is a Docker-based project that captures images from an RTSP strea
 - Provides a mobile-ready web interface for real-time updates.
 - Allows standalone execution of various Python scripts.
 
+![Alt text](image.png)
+
 ## Configuration
 
 The behavior of the timelapse creation is controlled by environment variables. These can be set in a `.env` file for development or directly in the `docker-compose.yaml` file for deployment.
