@@ -109,7 +109,7 @@ def serve_media(filename):
 
 def start_flask_app():
     logging.debug('Starting Flask app...')
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=config.webserver_port)
     logging.debug('Exiting flask app.')
 
 if __name__ == "__main__":

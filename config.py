@@ -35,3 +35,5 @@ logging_level = getattr(logging, logging_level_str)
 
 launch_webserver_str = os.environ.get('launch_webserver', 'True')
 launch_webserver = False if launch_webserver_str.lower() == 'false' else bool(launch_webserver_str)
+
+webserver_port = int(os.environ.get('webserver_port', 5000))
