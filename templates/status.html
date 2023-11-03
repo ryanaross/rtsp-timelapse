@@ -34,9 +34,17 @@
             <p>No latest image available.</p>
         {% endif %}
 
-        <form action="/make_video" method="post">
-            <button type="submit">Download Today's Video</button>
+        <form action="/make_video" method="post" id="videoForm">
+            <button type="submit" id="videoButton">Download Today's Video</button>
         </form>
+        
+        <script>
+        document.getElementById('videoForm').addEventListener('submit', function() {
+            var button = document.getElementById('videoButton');
+            button.disabled = true;
+            button.innerText = 'Processing...';
+        });
+        </script>
 
         <h2 class="mt-4">Directories</h2>
         <div class="table-responsive">
