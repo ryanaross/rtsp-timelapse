@@ -30,6 +30,7 @@
                         <th>File Name</th>
                         <th>Last Modified</th>
                         <th>Size</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,12 +39,32 @@
                         <td><a href="{{ url_for('serve_media', filename=file) }}">{{ file }}</a></td>
                         <td>{{ details['last_modified'] }}</td>
                         <td>{{ details['size'] }} KB</td>
+                        <td><button class="delete-btn" data-filename="{{ file }}">Delete</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var filename = this.getAttribute('data-filename');
+                    if (confirm('Are you sure you want to delete ' + filename + '?')) {
+                        fetch('/media/' + filename, {
+                            method: 'DELETE'
+                        }).then(function(response) {
+                            if (response.ok) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

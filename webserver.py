@@ -83,6 +83,17 @@ def serve_file_list(directory):
         # Return a 404 error if the directory does not exist
         return 'Directory not found', 404
 
+@app.route('/media/<path:filename>', methods=['DELETE'])
+def delete_media(filename):
+    # Check if the file exists
+    if os.path.exists(filename):
+        # Delete the file
+        os.remove(filename)
+        return 'File deleted', 200
+    else:
+        # Return a 404 error if the file does not exist
+        return 'File not found', 404
+
 @app.route('/media/<path:filename>')
 def serve_media(filename):
     # Check if the file exists
