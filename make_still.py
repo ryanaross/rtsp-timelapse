@@ -5,6 +5,7 @@ def capture_image():
     from datetime import datetime
     import logging
     import config
+    import shutil
 
     logging.basicConfig(level=config.logging_level, format='%(asctime)s %(levelname)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
 
@@ -35,6 +36,9 @@ def capture_image():
             # save the image
             cv2.imwrite(image_path, frame)
             logging.info(f"Image saved at {image_path}")
+
+            # also save the image as latest.jpg
+            shutil.copy2(image_path, stills_dir + 'latest.jpg')
         else:
             logging.error('Unable to read frame from stream')
     else:
